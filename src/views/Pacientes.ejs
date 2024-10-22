@@ -1,0 +1,33 @@
+<%- include('partials/_header') %>
+
+<div class="container">
+    <h1>Lista de Pacientes</h1>
+
+    <!-- Botón para agregar un nuevo paciente -->
+    <a href="/pacientes/formulario" class="btn btn-success mb-3">Agregar Paciente</a>
+
+    <table class="table tabled-bordered table-hoover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Tipo de Caso</th>
+                <th>ID Dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(patient => { %>
+                <tr>
+                    <td><%= patient.id_paciente %></td>
+                    <td><%= patient.nombre %></td>
+                    <td><%= patient.apellido %></td>
+                    <td><%= patient.tipo_caso %></td>
+                    <td><%= patient.id_direccion %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('partials/_footer') %>
