@@ -7,12 +7,12 @@
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre" required>
         </div>
-
+    
         <div class="form-group">
             <label for="apellido">Apellido</label>
             <input type="text" class="form-control" id="apellido" name="apellido" required>
         </div>
-
+    
         <div class="form-group">
             <label for="tipo_caso">Tipo de Caso</label>
             <select class="form-control" id="tipo_caso" name="tipo_caso" required>
@@ -21,24 +21,20 @@
                 <option value="Grupo C">Grupo C</option>
             </select>
         </div>
-
+    
         <div class="form-group">
-            <!-- Botón para agregar una nueva dirección -->
-<a href="/direcciones/formulario" class="btn btn-info mb-3">Agregar Nueva Dirección</a>
-
-            <label for="id_direccion">Seleccionar Dirección</label>
+            <label for="id_direccion">Dirección</label>
             <select class="form-control" id="id_direccion" name="id_direccion" required>
                 <% direcciones.forEach(direccion => { %>
-                    <option value="<%= direccion.id_direccion %>">
-                        <%= direccion.barrio %> - <%= direccion.calle %> - <%= direccion.numero %>
+                    <option value="<%= direccion.id_direccion %>" <%= direccion.id_direccion === idDireccion ? 'selected' : '' %> >
+                        <%= direccion.barrio %>, <%= direccion.calle %> <%= direccion.numero %>
                     </option>
                 <% }) %>
             </select>
-        
         </div>
-
+    
         <button type="submit" class="btn btn-primary">Registrar Paciente</button>
-    </form>
+    </form>    
 </div>
 
 <%- include('partials/_footer') %>

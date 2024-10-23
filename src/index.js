@@ -24,6 +24,12 @@ app.use(myConnection(mysql, {
     database: 'crudmalargue'
 }, 'single'));
 
+// Middleware para analizar datos JSON
+app.use(express.json());
+
+// Middleware para analizar datos URL-encoded (como formularios)
+app.use(express.urlencoded({ extended: true }));
+
 // Rutas
 app.use('/', customerRoutes);
 
