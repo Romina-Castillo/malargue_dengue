@@ -16,15 +16,21 @@
             </tr>
         </thead>
         <tbody>
-            <% data.forEach(patient => { %>
+            <% if (pacientes && pacientes.length > 0) { %>
+                <% pacientes.forEach(patient => { %>
+                    <tr>
+                        <td><%= patient.id %></td>
+                        <td><%= patient.nombre %></td>
+                        <td><%= patient.apellido %></td>
+                        <td><%= patient.tipo_caso %></td>
+                        <td><%= patient.id_direccion %></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
                 <tr>
-                    <td><%= patient.id_paciente %></td>
-                    <td><%= patient.nombre %></td>
-                    <td><%= patient.apellido %></td>
-                    <td><%= patient.tipo_caso %></td>
-                    <td><%= patient.id_direccion %></td>
+                    <td colspan="5" class="text-center">No hay pacientes registrados.</td>
                 </tr>
-            <% }) %>
+            <% } %>
         </tbody>
     </table>
 </div>

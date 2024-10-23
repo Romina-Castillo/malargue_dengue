@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require('express-session'); 
+const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
 const mysql = require('mysql2');
@@ -9,10 +11,18 @@ const app = express();
 // Importando rutas
 const customerRoutes = require('./routes/customer');
 
-// Configuración del puerto
+// Configuración de vistas
 app.set('port', process.env.PORT || 3005);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Configuración del middleware de sesiones
+app.use(session({
+    secret: 'yonikoamorcitotedare', // Cambia esto a un secreto seguro
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Cambia a true si usas HTTPS
+}));
 
 // Middlewares
 app.use(morgan('dev'));
@@ -25,10 +35,8 @@ app.use(myConnection(mysql, {
 }, 'single'));
 
 // Middleware para analizar datos JSON
-app.use(express.json());
-
-// Middleware para analizar datos URL-encoded (como formularios)
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Rutas
 app.use('/', customerRoutes);

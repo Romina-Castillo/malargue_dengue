@@ -4,15 +4,16 @@ const controller = {};
 controller.list = (req, res) => {
     req.getConnection((err, conn) => {
         if (err) {
-            return res.json(err);
+            console.error('Error de conexión:', err);
+            return res.status(500).send('Error en el servidor');
         }
-        conn.query('SELECT * FROM Mpaciente', (err, customers) => {
+        conn.query('SELECT * FROM Mpacientes', (err, pacientes) => { // Cambié 'customers' a 'pacientes'
             if (err) {
-                return res.json(err);
+                console.error('Error al obtener pacientes:', err);
+                return res.status(500).send('Error en el servidor');
             }
-            console.log('customers');
-            res.render('Pacientes', {
-                data: customers
+            res.render('pacientes', {
+                pacientes: pacientes // Asegúrate de que aquí se pasa 'pacientes'
             });
         });
     });

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/customerController');  // Importa correctamente el controlador
-const bcrypt = require('bcrypt'); // Asegúrate de instalar bcrypt
+const controller = require('../controllers/customerController'); 
+const bcrypt = require('bcrypt'); 
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 // Controlador para la vista de home
 router.get('/', (req, res) => {
@@ -25,6 +27,7 @@ router.post('/register', (req, res) => {
     // Encriptar la contraseña antes de guardar
     bcrypt.hash(contraseña, 10, (err, hash) => {
         if (err) {
+            console.error('Error al encriptar la contraseña:', err);
             return res.status(500).send('Error al encriptar la contraseña');
         }
 
@@ -36,13 +39,15 @@ router.post('/register', (req, res) => {
 
         req.getConnection((err, conn) => {
             if (err) {
-                return res.json(err);
+                console.error('Error de conexión:', err);
+                return res.status(500).send('Error en el servidor');
             }
 
-            // Primero, verificar si el email ya existe
+            // Verificar si el email ya existe
             conn.query('SELECT * FROM Musuario WHERE email = ?', [email], (err, results) => {
                 if (err) {
-                    return res.json(err);
+                    console.error('Error al verificar el email:', err);
+                    return res.status(500).send('Error en el servidor');
                 }
 
                 if (results.length > 0) {
@@ -50,10 +55,11 @@ router.post('/register', (req, res) => {
                     return res.status(400).send('Este correo ya está registrado. Por favor, utiliza otro correo.');
                 }
 
-                // Si el correo no está en uso, proceder a la inserción
+                // Inserción del nuevo usuario
                 conn.query('INSERT INTO Musuario SET ?', [nuevoUsuario], (err, result) => {
                     if (err) {
-                        return res.json(err);
+                        console.error('Error al insertar el nuevo usuario:', err);
+                        return res.status(500).send('Error en el servidor');
                     }
                     res.redirect('/login'); // Redirige al login después de registrar
                 });
@@ -90,12 +96,7 @@ router.post('/login', (req, res) => {
 });
 
 
-// Controlador para manejar la lógica de registro (POST)
-router.post('/register', (req, res) => {
-    const { nombre_usuario, email, contraseña } = req.body;
-    // Lógica para registrar al usuario aquí
-    // Redirige o muestra mensaje según el resultado
-});
+
 
 // Ruta para el listado de pacientes
 router.get('/pacientes', (req, res) => {
@@ -107,7 +108,7 @@ router.get('/pacientes', (req, res) => {
     // Consulta para obtener el listado de pacientes
     req.getConnection((err, conn) => {
         if (err) return res.json(err);
-        conn.query('SELECT * FROM pacientes', (err, results) => {
+        conn.query('SELECT * FROM Mpacientes', (err, results) => {
             if (err) return res.json(err);
             res.render('pacientes', { pacientes: results }); // Renderiza la vista con los pacientes
         });
