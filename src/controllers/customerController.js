@@ -37,7 +37,7 @@ controller.agregar = (req, res) => {
             if (err) {
                 return res.json(err);
             }
-            res.redirect('/pacientes');
+            res.redirect('/pacientes'); // Redirige al listado de pacientes
         });
     });
 };
@@ -85,7 +85,7 @@ controller.agregarDireccion = (req, res) => {
             }
             const idDireccion = result.insertId; // Obtén el ID de la dirección recién registrada
             // Redirige al formulario de registro de pacientes con el ID de dirección como parámetro
-            res.redirect(`/pacientes/registrar?id_direccion=${idDireccion}`);
+            res.redirect(`/pacientes/formPaciente?id_direccion=${idDireccion}`);
         });
     });
 };
