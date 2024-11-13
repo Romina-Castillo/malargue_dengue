@@ -33,7 +33,7 @@ controller.agregar = (req, res) => {
         if (err) {
             return res.json(err);
         }
-        conn.query('INSERT INTO Mpaciente SET ?', [nuevoPaciente], (err, result) => {
+        conn.query('INSERT INTO Mpacientes SET ?', [nuevoPaciente], (err, result) => {
             if (err) {
                 return res.json(err);
             }
