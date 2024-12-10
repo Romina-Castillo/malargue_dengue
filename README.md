@@ -3,6 +3,8 @@
 te sale redirigite a esa direccion es donde esta corriendo la app
 primero tenes que iniciar sesion o registrarte, y de ahi recien te muestra la lista de pacientes 
 
+NO OLVIDAR CAMBIAR LA CONTRASEÑA DE MYSQL EN INDEX.JS
+
 BASE DE DATOS
 CREATE DATABASE crudmalargue;
 

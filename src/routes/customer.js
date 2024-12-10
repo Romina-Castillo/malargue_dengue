@@ -7,17 +7,17 @@ const bodyParser = require('body-parser');
 
 // Controlador para la vista de home
 router.get('/', (req, res) => {
-    res.render('home');
+    res.render('home', { user: req.session.user });
 });
 
 // Controlador para mostrar el formulario de login
 router.get('/login', (req, res) => {
-    res.render('login'); // Asegúrate de que el archivo 'login.ejs' esté creado
+    res.render('login'); 
 });
 
 // Controlador para mostrar el formulario de registro
 router.get('/register', (req, res) => {
-    res.render('register'); // Asegúrate de que el archivo 'register.ejs' esté creado
+    res.render('register'); 
 });
 
 // Controlador para manejar la lógica de registro (POST)
@@ -78,7 +78,7 @@ router.post('/login', (req, res) => {
         conn.query('SELECT * FROM Musuario WHERE email = ?', [email], (err, results) => {
             if (err) return res.json(err);
             if (results.length === 0) {
-                return res.redirect('/login'); // Usuario no encontrado
+                return res.redirect('/login'); // usuario no encontrado
             }
 
             // Comparar la contraseña
@@ -88,8 +88,8 @@ router.post('/login', (req, res) => {
                     return res.redirect('/login'); // Contraseña incorrecta
                 }
 
-                req.session.user = usuario; // Almacena el usuario en la sesión
-                res.redirect('/pacientes'); // Redirige al listado de pacientes
+                req.session.user = usuario; // se almacena el usuario en la sesión
+                res.redirect('/pacientes'); // redirige al listado de pacientes
             });
         });
     });
@@ -97,17 +97,20 @@ router.post('/login', (req, res) => {
 
 // Ruta para el listado de pacientes
 router.get('/pacientes', (req, res) => {
-    // Asegúrate de que el usuario esté logueado
     if (!req.session.user) {
-        return res.redirect('/login'); // Redirige al login si no está logueado
+        return res.redirect('/login'); // redirige al login si no está logueado
     }
-    
+
     // Consulta para obtener el listado de pacientes
     req.getConnection((err, conn) => {
         if (err) return res.json(err);
         conn.query('SELECT * FROM Mpacientes', (err, results) => {
             if (err) return res.json(err);
-            res.render('pacientes', { pacientes: results }); // Renderiza la vista con los pacientes
+            res.render('pacientes', { 
+                pacientes: results, 
+                user: req.session.user // pasa el usuario logueado a la vista 
+                // agregar en los render de las vistas necesarias  ", { user: req.session.user }"
+            });
         });
     });
 });
@@ -116,12 +119,12 @@ router.get('/pacientes', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) return res.json(err);
-        res.redirect('/login'); // Redirige al login después de cerrar sesión
+        res.redirect('/'); // redirige a la ruta principal después de cerrar sesión
     });
 });
 
 // Ruta para mostrar el formulario de agregar pacientes
-router.get('/pacientes/formPaciente', controller.mostrarFormularioPaciente);  // Asegúrate de que esta función esté definida
+router.get('/pacientes/formPaciente', controller.mostrarFormularioPaciente);  
 
 // Ruta para procesar el formulario de agregar pacientes
 router.post('/pacientes/agregar', controller.agregar);
@@ -130,7 +133,7 @@ router.post('/pacientes/agregar', controller.agregar);
 router.get('/direcciones/formulario', controller.mostrarFormularioDireccion);
 
 // Ruta para agregar una nueva dirección
-router.post('/direcciones/agregar', controller.agregarDireccion); // Esta es la ruta que maneja el formulario de dirección
+router.post('/direcciones/agregar', controller.agregarDireccion);
 
 router.get('/registrar', controller.mostrarFormularioPaciente);
 
