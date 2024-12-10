@@ -18,10 +18,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Configuración del middleware de sesiones
 app.use(session({
-    secret: 'yonikoamorcitotedare', // Cambia esto a un secreto seguro
+    secret: 'salaymendoza', 
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Cambia a true si usas HTTPS
+    cookie: { secure: false }
 }));
 
 // Middlewares
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Comprobación de conexión a la base de datos cuando se inicie el servidor
 app.listen(app.get('port'), () => {
     console.log(`Server on port ${app.get('port')}`);
-    console.log('Redirigite a http://localhost:3005/');
+    console.log('Dirigite a http://localhost:3005/');
     // Aquí puedes crear una conexión temporal para verificar
     mysql.createConnection({
         host: 'localhost',

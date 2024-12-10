@@ -95,9 +95,6 @@ router.post('/login', (req, res) => {
     });
 });
 
-
-
-
 // Ruta para el listado de pacientes
 router.get('/pacientes', (req, res) => {
     // Asegúrate de que el usuario esté logueado
@@ -136,5 +133,6 @@ router.get('/direcciones/formulario', controller.mostrarFormularioDireccion);
 router.post('/direcciones/agregar', controller.agregarDireccion); // Esta es la ruta que maneja el formulario de dirección
 
 router.get('/registrar', controller.mostrarFormularioPaciente);
+
 
 module.exports = router;
