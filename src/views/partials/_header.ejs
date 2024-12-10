@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Municipalidad de Malargüe</title>
-        <link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <!-- Bootstrap JS (con Popper.js incluido) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
 
-    </head>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Municipalidad de Malargüe</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap JS (con Popper.js incluido) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- para los iconos -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</head>
+
 <body>
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
         <a class="navbar-brand ms-3" href="/">Municipalidad de Malargüe</a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <!-- Verifica si el usuario está logueado -->
-                <% if (user) { %> <!-- Si hay un usuario en la sesión -->
+                <% if (user) { %> <!-- si hay un usuario en la sesión -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user"></i> <!-- Icono de usuario -->
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user"></i> 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="/pacientes">Listado de Pacientes</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="/logout">Cerrar Sesión</a></li>
                         </ul>
                     </li>
-                <% } else { %> <!-- Si el usuario no está logueado -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register">Registrarse</a>
-                    </li>
-                <% } %>
+                    <% } else { %> <!-- si el usuario no está logueado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Iniciar Sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Registrarse</a>
+                        </li>
+                        <% } %>
             </ul>
         </div>
     </nav>
-    

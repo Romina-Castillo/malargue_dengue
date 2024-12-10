@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/customerController'); 
-const bcrypt = require('bcrypt'); 
+const controller = require('../controllers/customerController');
+const bcrypt = require('bcrypt');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
@@ -12,12 +12,12 @@ router.get('/', (req, res) => {
 
 // Controlador para mostrar el formulario de login
 router.get('/login', (req, res) => {
-    res.render('login'); 
+    res.render('login');
 });
 
 // Controlador para mostrar el formulario de registro
 router.get('/register', (req, res) => {
-    res.render('register'); 
+    res.render('register');
 });
 
 // Controlador para manejar la lógica de registro (POST)
@@ -106,8 +106,8 @@ router.get('/pacientes', (req, res) => {
         if (err) return res.json(err);
         conn.query('SELECT * FROM Mpacientes', (err, results) => {
             if (err) return res.json(err);
-            res.render('pacientes', { 
-                pacientes: results, 
+            res.render('pacientes', {
+                pacientes: results,
                 user: req.session.user // pasa el usuario logueado a la vista 
                 // agregar en los render de las vistas necesarias  ", { user: req.session.user }"
             });
@@ -124,7 +124,7 @@ router.get('/logout', (req, res) => {
 });
 
 // Ruta para mostrar el formulario de agregar pacientes
-router.get('/pacientes/formPaciente', controller.mostrarFormularioPaciente);  
+router.get('/pacientes/formPaciente', controller.mostrarFormularioPaciente);
 
 // Ruta para procesar el formulario de agregar pacientes
 router.post('/pacientes/agregar', controller.agregar);

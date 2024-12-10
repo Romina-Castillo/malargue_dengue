@@ -5,6 +5,9 @@ primero tenes que iniciar sesion o registrarte, y de ahi recien te muestra la li
 
 NO OLVIDAR CAMBIAR LA CONTRASEÑA DE MYSQL EN INDEX.JS
 
+Para buscar iconos
+https://fontawesome.com/v4/icons/
+
 BASE DE DATOS
 CREATE DATABASE crudmalargue;
 
